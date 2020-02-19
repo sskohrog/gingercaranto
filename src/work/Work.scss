@@ -1,0 +1,62 @@
+@import '../global/Variables.scss';
+
+.work-container {
+  .work-img {
+    width: 100%;
+  }
+  .work-item-container {
+    margin-top: 3%;
+    .title-container {
+      > .work-title {
+        width: fit-content;
+        color: #fff;
+        text-transform: capitalize;
+      }
+    }
+    .services {
+      > p {
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+.work-container {
+  &.graphic-design {
+    .title-container,
+    .services,
+    .info-container {
+      > p {
+        color: $graphic-designer;
+      }
+    }
+  }
+
+  &.social-media {
+    .title-container,
+    .services,
+    .info-container {
+      > p {
+        color: $graphic-designer;
+      }
+    }
+  }
+
+  &.creative-producer {
+    .title-container,
+    .services,
+    .info-container {
+      > p {
+        color: $creative-producer;
+      }
+    }
+  }
+  &.photo-editor {
+    .title-container,
+    .services,
+    .info-container {
+      > p {
+        color: $photo-editor;
+      }
+    }
+  }
+}
