@@ -26,22 +26,25 @@ function AdminWork({ location, svc, client }) {
           NEW WORK
         </Link>
       </div>
-      {workContext[svc] &&
-        workContext[svc][client] &&
-        Object.keys(workContext[svc][client]).map((key, idx) => {
-          let work = workContext[svc][client][key]
-          return (
-            <div className='row work-item-container' id={'work-item-' + idx}>
-              <div className='col-12 title-container'>
-                <h4 className='work-title'>
+      <div className='row work-item-container'>
+        <div className='col-12 title-container'>
+          <h4>Work Items</h4>
+          <p>Select work title to edit</p>
+          <hr />
+          {workContext[svc] &&
+            workContext[svc][client] &&
+            Object.keys(workContext[svc][client]).map((key, idx) => {
+              let work = workContext[svc][client][key]
+              return (
+                <h5 className='work-title'>
                   <Link to={`/edit/${svc}/${client}/${work.key}`}>
                     {work.title}
                   </Link>
-                </h4>
-              </div>
-            </div>
-          )
-        })}
+                </h5>
+              )
+            })}
+        </div>
+      </div>
     </div>
   )
 }

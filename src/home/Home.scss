@@ -133,9 +133,12 @@
   margin-top: 5%;
   .sm-icons {
     margin-left: 1%;
-    svg {
+    svg,
+    .cls-1 {
       max-width: 55px;
       cursor: pointer;
+      fill: #ea3d30;
+      stroke: #ea3d30;
     }
     svg:hover {
       .cls-1 {

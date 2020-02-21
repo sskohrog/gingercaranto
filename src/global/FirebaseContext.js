@@ -7,7 +7,27 @@ const FirebaseContext = React.createContext(null)
 
 function FirebaseProvider({ children }) {
   const [firebaseContext, setFirebaseContext] = useState(null)
-  const [workContext, setWorkContext] = useState({})
+  const [workContext, setWorkContext] = useState({
+    'creative-producer': {
+      alta: {},
+      apple: {},
+      darnell: {},
+      ks: {},
+      stussy: {},
+      vans: {}
+    },
+    'graphic-design': {
+      apple: {}
+    },
+    photo: {
+      andi: {},
+      ks: {}
+    },
+    'social-media': {
+      element: {},
+      vans: {}
+    }
+  })
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
@@ -28,9 +48,10 @@ function FirebaseProvider({ children }) {
     })()
   }, [])
 
-  const updateWorkContext = (collection, doc) => {
-    firebaseContext &&
-      firebaseContext
+  const updateWorkContext = async (collection, doc) => {
+    return (
+      firebaseContext &&
+      (await firebaseContext
         .firestore()
         .collection(collection)
         .doc(doc)
@@ -40,12 +61,19 @@ function FirebaseProvider({ children }) {
 
           work[collection] = { [doc]: item.data() }
           setWorkContext(work)
-        })
+          return work
+        }))
+    )
   }
 
   const uploadImages = async (work, svc, project) => {
     await Promise.all(
       work.imgs.map(async (img, idx) => {
+        if (img.url !== '') {
+          work.imgs[idx].previewUrl = ''
+          work.imgs[idx].file = {}
+          return
+        }
         await firebaseContext
           .storage()
           .ref(`${svc}/${project}/${img.file.name}`)
@@ -64,34 +92,31 @@ function FirebaseProvider({ children }) {
           })
       })
     )
-
-    // await Promise.all(
-    //   work.imgs.map(async (img, idx) => {
-    //     let imgURL = await new Promise(
-    //       firebaseContext
-    //         .storage()
-    //         .ref(`${svc}/${project}`)
-    //         .child(img.file.name)
-    //         .getDownloadURL()
-    //     )
-    //     debugger
-    //     work.imgs[idx].url = imgURL
-    //     work.imgs[idx].previewUrl = ''
-    //     work.imgs[idx].file = {}
-    //   })
-    // )
   }
 
-  const saveNewWork = async (newWork, svc, project) => {
+  const saveWork = async (work, svc, client, project) => {
     setIsLoading(true)
-    let cloneNewWork = _cloneDeep(newWork)
-    await uploadImages(cloneNewWork, svc, project)
-    await firebaseContext
-      .firestore()
-      .collection(svc)
-      .doc(project)
-      .set({ [cloneNewWork.key]: cloneNewWork })
-    navigate(`/edit/${svc}/${project}`)
+    let updatedWork = _cloneDeep(work)
+    let cloneWork = _cloneDeep(workContext)
+    cloneWork[svc][client][updatedWork.key] = updatedWork
+
+    await uploadImages(updatedWork, svc, client)
+    try {
+      project === 'new'
+        ? await firebaseContext
+            .firestore()
+            .collection(svc)
+            .doc(client)
+            .set(cloneWork[svc][client])
+        : await firebaseContext
+            .firestore()
+            .collection(svc)
+            .doc(client)
+            .update(cloneWork[svc][client])
+    } catch (err) {
+      console.log(err)
+    }
+    navigate(`/edit/${svc}/${client}`)
     setIsLoading(false)
   }
 
@@ -101,7 +126,7 @@ function FirebaseProvider({ children }) {
         firebaseContext,
         workContext,
         updateWorkContext,
-        saveNewWork,
+        saveWork,
         isLoading
       }}
     >

@@ -13,7 +13,7 @@ function Routes({ count, location }) {
     <Router className='row full-height'>
       <Home path='/' />
       <Info path='/info' />
-      {count === 5 ? <AdminHome path='/edit' /> : <AdminError path='/edit' />}
+      {count === 10 ? <AdminHome path='/edit' /> : <AdminError path='/edit' />}
       <WorkPage path='/work/:svc/:client' location={location} />
       <AdminWork path='/edit/:svc/:client' />
       <EditWork path='/edit/:svc/:client/:project' />

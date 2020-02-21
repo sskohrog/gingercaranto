@@ -2,7 +2,7 @@ import React from 'react'
 import { Location, navigate } from '@reach/router'
 import './Global.scss'
 
-function Header({ onClick }) {
+function Header({ onClick, setCount }) {
   return (
     <Location>
       {({ location }) => (
@@ -13,7 +13,10 @@ function Header({ onClick }) {
           <div className='col home'>
             <div
               className='row white-banner header-left'
-              onClick={() => navigate('/')}
+              onClick={() => {
+                setCount(0)
+                navigate('/')
+              }}
             >
               Ginger <br />
               Caranto

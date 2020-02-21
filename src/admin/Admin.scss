@@ -175,12 +175,18 @@
   .work-img {
     width: 100%;
   }
+  .work-title {
+    a:hover {
+      text-decoration: underline !important;
+    }
+  }
   .new-work-btn-container {
     justify-content: flex-end;
     margin-top: 1%;
   }
   .work-item-container {
     margin-top: 3%;
+    margin-bottom: 3%;
     .title-container,
     .services,
     .key-work > p {
@@ -193,7 +199,9 @@
     .key-work,
     .info-container,
     .imgs-container {
-      > p {
+      > p,
+      a,
+      h4 {
         color: $graphic-designer;
       }
     }
@@ -206,14 +214,15 @@
       }
     }
   }
-
   &.social-media {
     .title-container,
     .services,
     .key-work,
     .info-container,
     .imgs-container {
-      > p {
+      > p,
+      a,
+      h4 {
         color: $social-media;
       }
     }
@@ -226,14 +235,15 @@
       }
     }
   }
-
   &.creative-producer {
     .title-container,
     .services,
     .key-work,
     .info-container,
     .imgs-container {
-      > p {
+      > p,
+      a,
+      h4 {
         color: $creative-producer;
       }
     }
@@ -252,7 +262,9 @@
     .key-work,
     .info-container,
     .imgs-container {
-      > p {
+      > p,
+      a,
+      h4 {
         color: $photo-editor;
       }
     }

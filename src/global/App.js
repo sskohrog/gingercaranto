@@ -10,9 +10,9 @@ function App() {
   const [count, setCount] = useState(0)
   const adminMode = e => {
     setCount(count + 1)
-    if (count === 4) {
+    if (count === 9) {
       navigate('/edit')
-    } else if (count === 5) {
+    } else if (count === 10) {
       setCount(0)
       navigate('/')
     }
@@ -23,10 +23,10 @@ function App() {
       {({ location }) => (
         <div
           className={
-            'main-container container-fluid' + (count === 5 ? ' edit' : '')
+            'main-container container-fluid' + (count === 10 ? ' edit' : '')
           }
         >
-          <Header onClick={adminMode} />
+          <Header onClick={adminMode} setCount={setCount} />
           <FirebaseProvider>
             <FirebaseContext.Consumer>
               {({ firebaseContext }) => {
@@ -43,7 +43,7 @@ function App() {
             location.pathname === '/info' ||
             location.pathname.includes('/edit') ||
             location.pathname.includes('/new')
-          ) && <Footer />}
+          ) && <Footer location={location} />}
         </div>
       )}
     </Location>

@@ -1,20 +1,21 @@
 import React from 'react'
+import './Work.scss'
 
 function SocialMediaPage({ work = {} }) {
   return (
-    <div className='row social-media-container'>
+    <div className='row social-media-container work-item-container'>
       <div className='col-12 title-container'>
-        <h4>{work.title}</h4>
+        <h4 className='work-title'>{work.title}</h4>
       </div>
-      <div className='col-4 info-container'>
-        <p>{work.text}</p>
+      <div className='col-4 svc-container'>
+        <p>{work.svc}</p>
       </div>
       <div className='col-8 img-container'>
         <div className='row'>
           {work.imgs.map(img => {
             return (
               <div className='sm-imgs-container col-6'>
-                <img className='work-img' id={img.url} />
+                <img className='sm-img' src={img.url} alt='work images' />
               </div>
             )
           })}

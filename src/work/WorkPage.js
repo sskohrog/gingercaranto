@@ -33,17 +33,25 @@ function WorkPage({ location, svc, client }) {
                 return (
                   <div
                     className={
-                      'imgs-container col' + (img.col ? ' -' + img.col : '')
+                      'imgs-container col' + (img.col ? '-' + img.col : '')
                     }
                   >
-                    <img
-                      alt={img.text}
-                      className='work-img'
-                      src={
-                        'https://firebasestorage.googleapis.com/v0/b/ginger-caranto.appspot.com/o/graphic-design%2Faltamont1.png?alt=media&token=70e490a5-4f46-49e4-a296-df38c23b1d15' ||
-                        img.url
-                      }
-                    />
+                    {img.type === 'img' ? (
+                      <img
+                        alt={img.text}
+                        className='work-img'
+                        src={img.previewUrl || img.url}
+                      />
+                    ) : (
+                      <video className='work-video' controls>
+                        <source
+                          src={img.previewUrl || img.url}
+                          alt={img.text}
+                          type='video/mp4'
+                        />
+                      </video>
+                    )}
+                    <p className='img-subtext'>{img.text}</p>
                   </div>
                 )
               })}

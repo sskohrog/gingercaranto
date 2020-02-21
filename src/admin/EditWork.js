@@ -1,57 +1,60 @@
 import React, { useState, useContext, useEffect } from 'react'
+import _cloneDeep from 'lodash/cloneDeep'
 import { FirebaseContext } from '../global/FirebaseContext'
 import Loader from '../global/Loader'
 import './Admin.scss'
-import _cloneDeep from 'lodash/cloneDeep'
 
-function EditWork({ location, svc, client, project }) {
-  const { saveNewWork, isLoading } = useContext(FirebaseContext)
-  const [newWork, setNewWork] = useState({
-    title: '',
-    svc: '',
-    imgs: [
-      // {
-      //   type: 'img',
-      //   col: '',
-      //   text: 'teest'
-      // },{
-      //   type: 'img',
-      //   col: '',
-      //   text: 'teest'
-      // }
-    ]
-  })
+function EditWork({ svc, client, project }) {
+  const { saveWork, updateWorkContext, isLoading } = useContext(FirebaseContext)
+  const [gingerWork, setGingerWork] = useState()
 
-  // useEffect(() => {
-  //   ;(async () => {
+  useEffect(() => {
+    ;(async () => {
+      project === 'new'
+        ? setGingerWork({
+            title: '',
+            svc: '',
+            imgs: []
+          })
+        : await updateFromCache()
+    })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [svc, client, project])
 
-  //   })()
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [svc, client])
+  const updateFromCache = async () => {
+    const ginger = await updateWorkContext(svc, client)
+    setGingerWork(ginger[svc][client][project])
+  }
 
   const updateTitle = event => {
-    let cloneWork = _cloneDeep(newWork)
+    let cloneWork = _cloneDeep(gingerWork)
     cloneWork.title = event.target.value
-    setNewWork(cloneWork)
+    setGingerWork(cloneWork)
   }
   const updateSvc = event => {
-    let cloneWork = _cloneDeep(newWork)
+    let cloneWork = _cloneDeep(gingerWork)
     cloneWork.svc = event.target.value
-    setNewWork(cloneWork)
+    setGingerWork(cloneWork)
   }
   const updateImgText = (event, idx) => {
-    let cloneWork = _cloneDeep(newWork)
+    let cloneWork = _cloneDeep(gingerWork)
     cloneWork.imgs[idx].text = event.target.value
-    setNewWork(cloneWork)
+    setGingerWork(cloneWork)
   }
   const updateCol = (event, idx) => {
-    let cloneWork = _cloneDeep(newWork)
+    let cloneWork = _cloneDeep(gingerWork)
     cloneWork.imgs[idx].col = event.target.value
-    setNewWork(cloneWork)
+    setGingerWork(cloneWork)
+  }
+
+  const removeFromImgArray = (img, idx) => {
+    let cloneWork = _cloneDeep(gingerWork)
+    cloneWork.imgs = cloneWork.imgs.filter(img2 => img.url !== img2.url)
+    setGingerWork(cloneWork)
   }
 
   const newMediaObject = () => {
-    let cloneWork = _cloneDeep(newWork)
+    let cloneWork = _cloneDeep(gingerWork)
     cloneWork.imgs.push({
       type: '',
       col: '',
@@ -60,10 +63,11 @@ function EditWork({ location, svc, client, project }) {
       previewUrl: '',
       file: {}
     })
-    setNewWork(cloneWork)
+    setGingerWork(cloneWork)
   }
+
   const editWorkDetails = (type, event, idx) => {
-    let cloneWork = _cloneDeep(newWork)
+    let cloneWork = _cloneDeep(gingerWork)
     switch (type) {
       case 'upload':
         if (event.target.files.length === 0) {
@@ -86,7 +90,7 @@ function EditWork({ location, svc, client, project }) {
       default:
         break
     }
-    setNewWork(cloneWork)
+    setGingerWork(cloneWork)
   }
 
   return (
@@ -101,42 +105,43 @@ function EditWork({ location, svc, client, project }) {
         <div className='row work-item-container'>
           <div className='col-12 title-container'>
             <p className='work-title form-group'>
-              <label for='work-title'>Title: </label>
+              <label>Title: </label>
               <input
                 type='text'
-                class='form-control'
+                className='form-control'
                 id='work-title'
                 aria-describedby='workTitle'
                 placeholder='TITLE'
-                value={newWork.title}
+                value={(gingerWork || {}).title}
                 onChange={updateTitle}
               />
             </p>
           </div>
           <div className='col-12 services'>
             <p className='form-group'>
-              <label for='work-svc'>Service: </label>
+              <label>Service: </label>
               <input
                 type='text'
-                class='form-control'
+                className='form-control'
                 id='work-svc'
                 aria-describedby='workService'
                 placeholder='SERVICE'
-                value={newWork.svc}
+                value={(gingerWork || {}).svc}
                 onChange={updateSvc}
               />
             </p>
           </div>
           <div className='col-12 key-work'>
             <p className='form-group'>
-              <label for='key-name'>Key: </label>
+              <label>Key: </label>
               <input
                 type='text'
-                class='form-control'
+                className='form-control'
                 id='key-name'
+                disabled={project !== 'new'}
                 aria-describedby='keyName'
                 placeholder='KEY NAME'
-                value={newWork.key}
+                value={(gingerWork || {}).key}
                 onChange={e => editWorkDetails('key', e)}
               />
             </p>
@@ -150,14 +155,21 @@ function EditWork({ location, svc, client, project }) {
               NEW IMG/VIDEO
             </button>
           </div>
-          {newWork.imgs.map((img, idx) => {
+          {((gingerWork || {}).imgs || []).map((img, idx) => {
             return (
               <div
+                key={idx}
                 className={
-                  'imgs-container col' + (newWork.col ? ' ' + newWork.col : '')
+                  'imgs-container col' +
+                  (gingerWork.col ? ' ' + gingerWork.col : '')
                 }
               >
-                <button type='button' className='close' aria-label='Close'>
+                <button
+                  type='button'
+                  className='close'
+                  aria-label='Close'
+                  onClick={() => removeFromImgArray(img, idx)}
+                >
                   <span aria-hidden='true'>&times;</span>
                 </button>
                 {img.type === 'img' ? (
@@ -167,7 +179,7 @@ function EditWork({ location, svc, client, project }) {
                     src={img.previewUrl || img.url}
                   />
                 ) : (
-                  <video>
+                  <video className='work-img'>
                     <source
                       src={img.previewUrl || img.url}
                       alt={img.text}
@@ -185,8 +197,7 @@ function EditWork({ location, svc, client, project }) {
                   Alt Text:
                   <input
                     type='text'
-                    class='form-control'
-                    id='alt-text-img'
+                    className='form-control'
                     aria-describedby='altTextImage'
                     placeholder='ALT TEXT FOR IMAGE'
                     value={img.text}
@@ -197,8 +208,7 @@ function EditWork({ location, svc, client, project }) {
                   Img Size:
                   <input
                     type='text'
-                    class='form-control'
-                    id='col-img'
+                    className='form-control'
                     aria-describedby='imageSize'
                     placeholder='IMG SIZE'
                     value={img.col}
@@ -212,7 +222,7 @@ function EditWork({ location, svc, client, project }) {
             <button
               type='button'
               className='btn btn-lg save-btn'
-              onClick={() => saveNewWork(newWork, svc, client)}
+              onClick={() => saveWork(gingerWork || {}, svc, client, project)}
             >
               SAVE WORK
             </button>

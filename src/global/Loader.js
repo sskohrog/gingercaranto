@@ -11,7 +11,7 @@ function Loader({ svc = '', height = 90, width = 90 }) {
         return '#f6d40e'
       case 'creative-producer':
         return '#0253dd'
-      case 'photo-editor':
+      case 'photo':
         return '#14af75'
       default:
         return '#ea3d30'

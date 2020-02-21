@@ -56,7 +56,7 @@ function Home() {
           <Link to='/work/photo/andi' className='col-12 tiles ae'>
             Andi Elloway
           </Link>
-          <Link to='/work/photo/kassia' className='col-12 tiles ks'>
+          <Link to='/work/photo/ks' className='col-12 tiles ks'>
             Kassia + Surf
           </Link>
         </div>
