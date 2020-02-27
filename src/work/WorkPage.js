@@ -21,79 +21,85 @@ function WorkPage({ location, svc, client }) {
     <div className={'col-12 work-container ' + svc}>
       {workContext[svc] &&
         workContext[svc][client] &&
-        Object.keys(workContext[svc][client]).map((key, idx) => {
-          let work = workContext[svc][client][key]
-          return svc === 'social-media' ? (
-            <SocialMediaPage work={work} />
-          ) : !_isNil(work) ? (
-            <div className='row work-item-container'>
-              {work.title && (
-                <div className='col-12 title-container'>
-                  <h5 className='work-title'>{work.title}</h5>
-                </div>
-              )}
-              {work.svc && (
-                <div className='col-12 services'>
-                  <p>Service: {work.svc}</p>
-                </div>
-              )}
-              {work.carousel ? (
-                <ItemsCarousel
-                  infiniteScroll
-                  requestToChangeActive={setActiveItemIndex}
-                  activeItemIndex={activeItemIndex}
-                  numberOfCards={3}
-                  gutter={20}
-                  leftChevron={<span className='left-btn'>{'<'}</span>}
-                  rightChevron={<span className='right-btn'>{'>'}</span>}
-                  // outsideChevron
-                  chevronWidth={40}
-                  classes={{
-                    wrapper: 'carousel-container',
-                    itemsInnerWrapper: 'carousel-wrapper'
-                  }}
-                >
-                  {work.imgs.map(img => {
-                    return (
-                      <img
-                        alt='carousel item'
-                        className='carousel-img'
-                        src={img.url}
-                      />
-                    )
-                  })}
-                </ItemsCarousel>
-              ) : (
-                work.imgs.map(img => {
-                  return (
-                    <div
-                      className={
-                        'imgs-container col' + (img.col ? '-' + img.col : '')
-                      }
-                    >
-                      {img.type === 'img' ? (
+        Object.keys(workContext[svc][client])
+          .sort((a, b) =>
+            workContext[svc][client][a].id > workContext[svc][client][b].id
+              ? 1
+              : -1
+          )
+          .map((key, idx) => {
+            let work = workContext[svc][client][key]
+            return svc === 'social-media' ? (
+              <SocialMediaPage work={work} />
+            ) : !_isNil(work) ? (
+              <div className='row work-item-container'>
+                {work.title && (
+                  <div className='col-12 title-container'>
+                    <h5 className='work-title'>{work.title}</h5>
+                  </div>
+                )}
+                {work.svc && (
+                  <div className='col-12 services'>
+                    <p>Service: {work.svc}</p>
+                  </div>
+                )}
+                {work.carousel ? (
+                  <ItemsCarousel
+                    infiniteScroll
+                    requestToChangeActive={setActiveItemIndex}
+                    activeItemIndex={activeItemIndex}
+                    numberOfCards={3}
+                    gutter={20}
+                    leftChevron={<span className='left-btn'>{'<'}</span>}
+                    rightChevron={<span className='right-btn'>{'>'}</span>}
+                    // outsideChevron
+                    chevronWidth={40}
+                    classes={{
+                      wrapper: 'carousel-container',
+                      itemsInnerWrapper: 'carousel-wrapper'
+                    }}
+                  >
+                    {work.imgs.map(img => {
+                      return (
                         <img
-                          alt={img.text}
-                          className='work-img'
+                          alt='carousel item'
+                          className='carousel-img'
                           src={img.url}
                         />
-                      ) : (
-                        <video className='work-video' controls>
-                          <source
-                            src={img.url}
+                      )
+                    })}
+                  </ItemsCarousel>
+                ) : (
+                  work.imgs.map(img => {
+                    return (
+                      <div
+                        className={
+                          'imgs-container col' + (img.col ? '-' + img.col : '')
+                        }
+                      >
+                        {img.type === 'img' ? (
+                          <img
                             alt={img.text}
-                            type='video/mp4'
+                            className='work-img'
+                            src={img.url}
                           />
-                        </video>
-                      )}
-                      <p className='img-subtext'>{img.text}</p>
-                    </div>
-                  )
-                })
-              )}
-            </div>
-          ) : null
-        })}
+                        ) : (
+                          <video className='work-video' controls>
+                            <source
+                              src={img.url}
+                              alt={img.text}
+                              type='video/mp4'
+                            />
+                          </video>
+                        )}
+                        <p className='img-subtext'>{img.text}</p>
+                      </div>
+                    )
+                  })
+                )}
+              </div>
+            ) : null
+          })}
     </div>
   )
 }

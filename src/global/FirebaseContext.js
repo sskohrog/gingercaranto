@@ -112,6 +112,9 @@ function FirebaseProvider({ children }) {
     setIsLoading(true)
     let updatedWork = _cloneDeep(work)
     let cloneWork = _cloneDeep(workContext)
+    if (!updatedWork.id) {
+      updatedWork.id = Object.keys(cloneWork[svc][client]).length + 1
+    }
     cloneWork[svc][client][updatedWork.key] = updatedWork
 
     await uploadImages(updatedWork, svc, client)
@@ -140,7 +143,6 @@ function FirebaseProvider({ children }) {
     let cloneWork = _cloneDeep(workContext)
     delete cloneWork[svc][client][work.key]
 
-    debugger
     try {
       await firebaseContext
         .firestore()

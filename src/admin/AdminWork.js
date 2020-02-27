@@ -1,4 +1,5 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
+import RLDD from 'react-list-drag-and-drop/lib/RLDD'
 import _isEmpty from 'lodash/isEmpty'
 import { Link, navigate } from '@reach/router'
 import { FirebaseContext } from '../global/FirebaseContext'
@@ -6,11 +7,27 @@ import './Admin.scss'
 
 function AdminWork({ location, svc, client }) {
   const { updateWorkContext, workContext } = useContext(FirebaseContext)
-  // const [editMode, setEditMode] = set
+  const [workItems, setWorkItems] = useState([])
   useEffect(() => {
     ;(async () => {
-      _isEmpty(workContext[svc] && workContext[svc][client]) &&
-        updateWorkContext(svc, client)
+      if (_isEmpty(workContext[svc] && workContext[svc][client])) {
+        let returnedWork = await updateWorkContext(svc, client)
+        let newWork = []
+        Object.keys(returnedWork[svc][client]).forEach(key => {
+          let work = returnedWork[svc][client][key]
+          newWork.push(work)
+        })
+        newWork.sort((a, b) => (a.id > b.id ? 1 : -1))
+        setWorkItems(newWork)
+      } else {
+        let newWork = []
+        Object.keys(workContext[svc][client]).forEach(key => {
+          let work = workContext[svc][client][key]
+          newWork.push(work)
+        })
+        newWork.sort((a, b) => (a.id > b.id ? 1 : -1))
+        setWorkItems(newWork)
+      }
     })()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [svc, client])
@@ -36,22 +53,25 @@ function AdminWork({ location, svc, client }) {
       <div className='row work-item-container'>
         <div className='col-12 title-container'>
           <h4>Work Items</h4>
-          <p>Select work title to edit</p>
+          <p>Select work title to edit OR drag and drop buttons to specify order</p>
           <hr />
-          {workContext[svc] &&
-            workContext[svc][client] &&
-            Object.keys(workContext[svc][client]).map((key, idx) => {
-              let work = workContext[svc][client][key]
+          <RLDD
+            items={workItems}
+            itemRenderer={work => {
               return (
-                <h5 className='work-title'>
+                <button className='work-title btn btn-lg' key={work.id}>
                   <Link to={`/edit/${svc}/${client}/${work.key}`}>
                     {work.title +
                       (_isEmpty(work.title) ? '' : ' - ') +
                       work.key}
                   </Link>
-                </h5>
+                </button>
               )
-            })}
+            }}
+            onChange={reorder => {
+              setWorkItems(reorder)
+            }}
+          />
         </div>
       </div>
     </div>

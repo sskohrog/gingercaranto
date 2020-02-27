@@ -103,7 +103,7 @@
     }
   }
 }
-.photo-editor.admin-landing-page {
+.photo.admin-landing-page {
   background-color: $photo-editor;
   > .row.tile-container {
     .tiles {
@@ -235,7 +235,7 @@
       }
     }
   }
-  &.photo-editor {
+  &.photo {
     color: $photo-editor;
     a {
       color: $photo-editor;
@@ -303,6 +303,21 @@
         display: flex;
         justify-content: space-evenly;
       }
+    }
+  }
+}
+
+// Admin work DND
+.admin-work-container {
+  .work-item-container {
+    .work-title {
+      margin-bottom: 1%;
+    }
+    .dragged .work-title {
+      opacity: 0.25;
+    }
+    .floating .work-title {
+      color: #ffffff;
     }
   }
 }

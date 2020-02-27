@@ -57,12 +57,12 @@ function AdminHome() {
           </Link>
         </div>
       </div>
-      <div className='col photo-editor admin-landing-page'>
+      <div className='col photo admin-landing-page'>
         <div className='row tile-container'>
           <Link to='/edit/photo/andi' className='col-12 tiles ae'>
             Andi Elloway
           </Link>
-          <Link to='/edit/photo/kassia' className='col-12 tiles ks'>
+          <Link to='/edit/photo/ks' className='col-12 tiles ks'>
             Kassia + Surf
           </Link>
         </div>

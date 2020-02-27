@@ -68,7 +68,7 @@ function Home() {
           </Link>
         </div>
       </div>
-      <div className='col photo-editor landing-page'>
+      <div className='col photo landing-page'>
         <div className='row tile-container'>
           <Link to='/work/photo/andi' className='col-12 tiles ae'>
             Andi Elloway
