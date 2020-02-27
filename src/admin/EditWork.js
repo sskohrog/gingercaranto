@@ -1,12 +1,17 @@
 import React, { useState, useContext, useEffect } from 'react'
+import HyperModal from 'react-hyper-modal'
 import _cloneDeep from 'lodash/cloneDeep'
+import { navigate } from '@reach/router'
 import { FirebaseContext } from '../global/FirebaseContext'
 import Loader from '../global/Loader'
 import './Admin.scss'
 
 function EditWork({ svc, client, project }) {
-  const { saveWork, updateWorkContext, isLoading } = useContext(FirebaseContext)
+  const { saveWork, deleteWork, updateWorkContext, isLoading } = useContext(
+    FirebaseContext
+  )
   const [gingerWork, setGingerWork] = useState()
+  const [openDeleteModal, setDeleteModal] = useState(false)
 
   useEffect(() => {
     ;(async () => {
@@ -36,6 +41,11 @@ function EditWork({ svc, client, project }) {
     cloneWork.svc = event.target.value
     setGingerWork(cloneWork)
   }
+  const toggleCarousel = toggle => {
+    let cloneWork = _cloneDeep(gingerWork)
+    cloneWork.carousel = !toggle
+    setGingerWork(cloneWork)
+  }
   const updateImgText = (event, idx) => {
     let cloneWork = _cloneDeep(gingerWork)
     cloneWork.imgs[idx].text = event.target.value
@@ -49,7 +59,7 @@ function EditWork({ svc, client, project }) {
 
   const removeFromImgArray = (img, idx) => {
     let cloneWork = _cloneDeep(gingerWork)
-    cloneWork.imgs = cloneWork.imgs.filter(img2 => img.url !== img2.url)
+    cloneWork.imgs = cloneWork.imgs.filter((img2, idx2) => idx !== idx2)
     setGingerWork(cloneWork)
   }
 
@@ -103,6 +113,22 @@ function EditWork({ svc, client, project }) {
         <Loader svc={svc} />
       ) : (
         <div className='row work-item-container'>
+          <div className='col-12 back-container'>
+            <h6
+              type='button'
+              className='back-btn'
+              onClick={() => navigate(`/edit/${svc}/${client}`)}
+            >
+              {`< BACK`}
+            </h6>
+            <button
+              type='button'
+              className='btn btn-md'
+              onClick={() => setDeleteModal(true)}
+            >
+              DELETE WORK
+            </button>
+          </div>
           <div className='col-12 title-container'>
             <p className='work-title form-group'>
               <label>Title: </label>
@@ -147,6 +173,18 @@ function EditWork({ svc, client, project }) {
             </p>
           </div>
           <div className='col-12 new-imgs-btn-container'>
+            <div className='form-check'>
+              <input
+                className='form-check-input'
+                type='checkbox'
+                defaultChecked={(gingerWork || {}).carousel}
+                id='carousel-check'
+                onClick={() => toggleCarousel(!gingerWork.carousel)}
+              />
+              <label className='form-check-label' for='carousel-check'>
+                Carousel Item?
+              </label>
+            </div>
             <button
               type='button'
               className='btn btn-lg'
@@ -229,6 +267,41 @@ function EditWork({ svc, client, project }) {
           </div>
         </div>
       )}
+      <HyperModal
+        isOpen={openDeleteModal}
+        requestClose={() => setDeleteModal(false)}
+      >
+        <div className='container delete-modal'>
+          <div className='row justify-content-center'>
+            <div className='col-7 title'>
+              <h5 className='delete-title'>
+                ARE YOU SURE YOU WANT TO DELETE ?
+              </h5>
+              <p className={'delete-btn-container mt-4'}>
+                <button
+                  type='button'
+                  className='btn btn-md yes-btn'
+                  onClick={() => {
+                    deleteWork(gingerWork || {}, svc, client)
+                    setDeleteModal(false)
+                  }}
+                >
+                  YES
+                </button>
+                <button
+                  type='button'
+                  className='btn btn-md no-btn'
+                  onClick={() => {
+                    setDeleteModal(false)
+                  }}
+                >
+                  NO
+                </button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </HyperModal>
     </div>
   )
 }

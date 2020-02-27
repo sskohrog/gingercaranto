@@ -4,10 +4,11 @@
   .work-img,
   .work-video {
     width: 100%;
+    max-width: 750px;
   }
   .work-item-container {
     margin-top: 3%;
-    padding: 0 3%;
+    padding: 0 1%;
     justify-content: center;
     .title-container {
       > .work-title {
@@ -22,34 +23,38 @@
       }
     }
     .imgs-container {
-      img-subtext {
-        margin-bottom: 5%;
+      .img-subtext {
+        color: #000;
+      }
+    }
+    .carousel-container {
+      width: 100%;
+      .carousel-wrapper {
+        > div {
+          text-align: center;
+          .carousel-img {
+            max-height: 100px;
+          }
+        }
+      }
+      .right-btn,
+      .left-btn {
+        font-size: 2rem;
+        font-weight: 600;
       }
     }
   }
 }
 .work-container {
   &.graphic-design {
-    .title-container,
-    .services,
-    .svc-container {
-      > p {
-        color: $graphic-designer;
-      }
-    }
+    color: $graphic-designer;
     .work-title {
       background-color: $graphic-designer;
     }
   }
 
   &.social-media {
-    .title-container,
-    .services,
-    .svc-container {
-      > p {
-        color: $social-media;
-      }
-    }
+    color: $social-media;
     .work-title {
       background-color: $social-media;
       margin-bottom: 1%;
@@ -65,27 +70,70 @@
   }
 
   &.creative-producer {
-    .title-container,
-    .services,
-    .svc-container {
-      > p {
-        color: $creative-producer;
-      }
-    }
+    color: $creative-producer;
     .work-title {
       background-color: $creative-producer;
     }
   }
   &.photo-editor {
-    .title-container,
-    .services,
-    .svc-container {
-      > p {
-        color: $photo-editor;
-      }
-    }
+    color: $photo-editor;
     .work-title {
       background-color: $photo-editor;
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+  .work-container {
+    .work-item-container {
+      .carousel-container {
+        .carousel-wrapper {
+          > div {
+            .carousel-img {
+              max-height: 225px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  .work-container {
+    .work-item-container {
+      .carousel-container {
+        .carousel-wrapper {
+          > div {
+            .carousel-img {
+              max-height: 275px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .work-container {
+    .work-item-container {
+      .carousel-container {
+        .carousel-wrapper {
+          > div {
+            .carousel-img {
+              max-height: 450px;
+            }
+          }
+        }
+      }
     }
   }
 }

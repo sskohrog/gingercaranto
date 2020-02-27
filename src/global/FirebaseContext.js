@@ -7,8 +7,10 @@ const FirebaseContext = React.createContext(null)
 
 function FirebaseProvider({ children }) {
   const [firebaseContext, setFirebaseContext] = useState(null)
+  const [applePW, setApplePW] = useState('')
+  const [passwordCorrect, setPWCorrect] = useState(true)
   const [workContext, setWorkContext] = useState({
-    'creative-producer': {
+    'graphic-design': {
       alta: {},
       apple: {},
       darnell: {},
@@ -16,16 +18,17 @@ function FirebaseProvider({ children }) {
       stussy: {},
       vans: {}
     },
-    'graphic-design': {
-      apple: {}
+    'social-media': {
+      element: {},
+      vans: {}
+    },
+    'creative-producer': {
+      apple: {},
+      vans: {}
     },
     photo: {
       andi: {},
       ks: {}
-    },
-    'social-media': {
-      element: {},
-      vans: {}
     }
   })
   const [isLoading, setIsLoading] = useState(false)
@@ -48,6 +51,17 @@ function FirebaseProvider({ children }) {
     })()
   }, [])
 
+  useEffect(() => {
+    if (applePW === '') {
+      return
+    } else if (applePW === process.env.REACT_APP_APPLE_PW) {
+      setPWCorrect(true)
+      navigate('/work/graphic-design/apple')
+    } else {
+      setPWCorrect(false)
+    }
+  }, [applePW])
+
   const updateWorkContext = async (collection, doc) => {
     return (
       firebaseContext &&
@@ -59,7 +73,7 @@ function FirebaseProvider({ children }) {
         .then(item => {
           let work = _cloneDeep(workContext)
 
-          work[collection] = { [doc]: item.data() }
+          work[collection] = { ...work[collection], [doc]: item.data() }
           setWorkContext(work)
           return work
         }))
@@ -117,6 +131,27 @@ function FirebaseProvider({ children }) {
       console.log(err)
     }
     navigate(`/edit/${svc}/${client}`)
+    updateWorkContext(svc, client)
+    setIsLoading(false)
+  }
+
+  const deleteWork = async (work, svc, client) => {
+    setIsLoading(true)
+    let cloneWork = _cloneDeep(workContext)
+    delete cloneWork[svc][client][work.key]
+
+    debugger
+    try {
+      await firebaseContext
+        .firestore()
+        .collection(svc)
+        .doc(client)
+        .set(cloneWork[svc][client])
+    } catch (err) {
+      console.log(err)
+    }
+    navigate(`/edit/${svc}/${client}`)
+    updateWorkContext(svc, client)
     setIsLoading(false)
   }
 
@@ -127,6 +162,10 @@ function FirebaseProvider({ children }) {
         workContext,
         updateWorkContext,
         saveWork,
+        deleteWork,
+        applePW,
+        setApplePW,
+        passwordCorrect,
         isLoading
       }}
     >

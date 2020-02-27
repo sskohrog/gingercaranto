@@ -36,8 +36,7 @@ function Info() {
             </a>
           </p>
         </div>
-        <div className='col-3' />
-        <div className='col-4 info-details'>
+        <div className='col-7 info-details'>
           <p>Hello!</p>
           <br />
           <p>

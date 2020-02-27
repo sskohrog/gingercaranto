@@ -8,13 +8,18 @@ import Home from '../home/Home'
 import EditWork from '../admin/EditWork'
 import WorkPage from '../work/WorkPage'
 
-function Routes({ count, location }) {
+function Routes({ count, location, passwordCorrect }) {
   return (
     <Router className='row full-height'>
       <Home path='/' />
       <Info path='/info' />
       {count === 10 ? <AdminHome path='/edit' /> : <AdminError path='/edit' />}
-      <WorkPage path='/work/:svc/:client' location={location} />
+
+      {location.pathname !== '/work/graphic-design/apple' || passwordCorrect ? (
+        <WorkPage path='/work/:svc/:client' location={location} />
+      ) : (
+        <AdminError path='/work/:svc/:client' />
+      )}
       <AdminWork path='/edit/:svc/:client' />
       <EditWork path='/edit/:svc/:client/:project' />
     </Router>

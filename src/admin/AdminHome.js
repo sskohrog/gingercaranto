@@ -5,14 +5,14 @@ import './Admin.scss'
 function AdminHome() {
   return (
     <>
-      <div className='col admin-home landing-page'>
+      <div className='col admin-home admin-landing-page'>
         <div className='row tile-container'>
           <Link to='/edit/info' className='col-12 tiles'>
             Info
           </Link>
         </div>
       </div>
-      <div className='col graphic-designer landing-page'>
+      <div className='col graphic-designer admin-landing-page'>
         <div className='row tile-container'>
           <Link to='/edit/graphic-design/apple' className='col-12 tiles apple'>
             Apple Music
@@ -31,7 +31,7 @@ function AdminHome() {
           </Link>
         </div>
       </div>
-      <div className='col social-media landing-page'>
+      <div className='col social-media admin-landing-page'>
         <div className='row tile-container'>
           <Link to='/edit/social-media/vans' className='col-12 tiles vans'>
             Vans
@@ -44,7 +44,7 @@ function AdminHome() {
           </Link>
         </div>
       </div>
-      <div className='col creative-producer landing-page'>
+      <div className='col creative-producer admin-landing-page'>
         <div className='row tile-container'>
           <Link
             to='/edit/creative-producer/apple'
@@ -57,7 +57,7 @@ function AdminHome() {
           </Link>
         </div>
       </div>
-      <div className='col photo-editor landing-page'>
+      <div className='col photo-editor admin-landing-page'>
         <div className='row tile-container'>
           <Link to='/edit/photo/andi' className='col-12 tiles ae'>
             Andi Elloway

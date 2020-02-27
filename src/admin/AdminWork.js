@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react'
 import _isEmpty from 'lodash/isEmpty'
-import { Link } from '@reach/router'
+import { Link, navigate } from '@reach/router'
 import { FirebaseContext } from '../global/FirebaseContext'
 import './Admin.scss'
 
@@ -18,6 +18,13 @@ function AdminWork({ location, svc, client }) {
   return (
     <div className={'col-12 admin-work-container ' + svc}>
       <div className='row new-work-btn-container'>
+        <h6
+          type='button'
+          className='back-btn'
+          onClick={() => navigate(`/edit`)}
+        >
+          {`< BACK`}
+        </h6>
         <Link
           to={`/edit/${svc}/${client}/new`}
           className='btn btn-lg'
@@ -38,7 +45,9 @@ function AdminWork({ location, svc, client }) {
               return (
                 <h5 className='work-title'>
                   <Link to={`/edit/${svc}/${client}/${work.key}`}>
-                    {work.title}
+                    {work.title +
+                      (_isEmpty(work.title) ? '' : ' - ') +
+                      work.key}
                   </Link>
                 </h5>
               )

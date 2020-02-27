@@ -17,12 +17,14 @@
     .row.white-banner {
       background-color: #fff;
       margin-top: 15px;
-      padding-left: 6px;
       font-size: 0.8rem;
+      max-height: 101px;
+      height: 101px;
+      align-items: center;
+      line-height: 1.2;
+      padding-left: 15px;
       &.header-left {
-        padding: 0;
         margin-left: 0;
-        line-height: 1.4;
       }
       &.header-right {
         margin-right: 0;
@@ -53,19 +55,9 @@
       color: $photo-editor;
     }
   }
-  .header-container#home-header {
-    > .col > .row.white-banner {
-      max-height: 101px;
-      height: 101px;
-      align-items: center;
-    }
-  }
   .header-container#main-header {
     > .col > .row.white-banner {
       margin-bottom: 15px;
-      max-height: 101px;
-      height: 101px;
-      align-items: center;
     }
   }
   .edit.header-container {
@@ -92,14 +84,14 @@
     }
   }
   .footer-sm {
-    padding: 1.5% 0;
-    max-height: 120px;
+    padding: 1% 0;
+    max-height: 100px;
     text-align: right;
     a {
       margin-right: 4%;
       svg,
       .cls-1 {
-        max-width: 65px;
+        max-width: 55px;
         cursor: pointer;
         fill: #fff;
         stroke: #fff;

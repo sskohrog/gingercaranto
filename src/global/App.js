@@ -15,6 +15,8 @@ function App() {
     } else if (count === 10) {
       setCount(0)
       navigate('/')
+    } else {
+      navigate('/')
     }
   }
 
@@ -29,10 +31,14 @@ function App() {
           <Header onClick={adminMode} setCount={setCount} />
           <FirebaseProvider>
             <FirebaseContext.Consumer>
-              {({ firebaseContext }) => {
+              {({ firebaseContext, passwordCorrect }) => {
                 return (
                   firebaseContext && (
-                    <Routes count={count} location={location} />
+                    <Routes
+                      count={count}
+                      location={location}
+                      passwordCorrect={passwordCorrect}
+                    />
                   )
                 )
               }}

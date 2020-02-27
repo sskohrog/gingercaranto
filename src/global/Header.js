@@ -23,19 +23,19 @@ function Header({ onClick, setCount }) {
             </div>
           </div>
           <div className='col graphic-designer'>
-            <div className='row white-banner'>
+            <div className='row white-banner' onClick={() => navigate('/')}>
               GRAPHIC <br />
               DESIGNER
             </div>
           </div>
           <div className='col social-media'>
-            <div className='row white-banner'>
-              SOCIAL
-              <br /> MEDIA
+            <div className='row white-banner' onClick={() => navigate('/')}>
+              SOCIAL <br />
+              MEDIA
             </div>
           </div>
           <div className='col creative-producer'>
-            <div className='row white-banner'>
+            <div className='row white-banner' onClick={() => navigate('/')}>
               CREATIVE <br />
               PRODUCER
             </div>
