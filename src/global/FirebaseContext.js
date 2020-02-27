@@ -108,6 +108,27 @@ function FirebaseProvider({ children }) {
     )
   }
 
+  const updatePosition = async (work, svc, client) => {
+    setIsLoading(true)
+    let updatedWork = _cloneDeep(work)
+    let cloneWork = _cloneDeep(workContext)
+    if (!updatedWork.id) {
+      updatedWork.id = Object.keys(cloneWork[svc][client]).length + 1
+    }
+    cloneWork[svc][client][updatedWork.key] = updatedWork
+
+    try {
+      await firebaseContext
+        .firestore()
+        .collection(svc)
+        .doc(client)
+        .set(cloneWork[svc][client])
+    } catch (err) {
+      console.log(err)
+    }
+    setIsLoading(false)
+  }
+
   const saveWork = async (work, svc, client, project) => {
     setIsLoading(true)
     let updatedWork = _cloneDeep(work)
@@ -117,7 +138,8 @@ function FirebaseProvider({ children }) {
     }
     cloneWork[svc][client][updatedWork.key] = updatedWork
 
-    await uploadImages(updatedWork, svc, client)
+    project !== 'position' && (await uploadImages(updatedWork, svc, client))
+
     try {
       project === 'new'
         ? await firebaseContext
@@ -163,6 +185,7 @@ function FirebaseProvider({ children }) {
         firebaseContext,
         workContext,
         updateWorkContext,
+        updatePosition,
         saveWork,
         deleteWork,
         applePW,

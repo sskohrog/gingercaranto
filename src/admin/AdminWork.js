@@ -6,7 +6,9 @@ import { FirebaseContext } from '../global/FirebaseContext'
 import './Admin.scss'
 
 function AdminWork({ location, svc, client }) {
-  const { updateWorkContext, workContext } = useContext(FirebaseContext)
+  const { updateWorkContext, workContext, updatePosition } = useContext(
+    FirebaseContext
+  )
   const [workItems, setWorkItems] = useState([])
   useEffect(() => {
     ;(async () => {
@@ -32,14 +34,18 @@ function AdminWork({ location, svc, client }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [svc, client])
 
+  const reorderWork = async reorder => {
+    let workContextReshape = {}
+    reorder.map((order, idx) => (order.id = idx + 1))
+    setWorkItems(reorder)
+    reorder.forEach(work => (workContextReshape[work.key] = work))
+    await updatePosition(workContextReshape, svc, client)
+  }
+
   return (
     <div className={'col-12 admin-work-container ' + svc}>
       <div className='row new-work-btn-container'>
-        <h6
-          type='button'
-          className='back-btn'
-          onClick={() => navigate(`/edit`)}
-        >
+        <h6 className='back-btn' onClick={() => navigate(`/edit`)}>
           {`< BACK`}
         </h6>
         <Link
@@ -53,7 +59,9 @@ function AdminWork({ location, svc, client }) {
       <div className='row work-item-container'>
         <div className='col-12 title-container'>
           <h4>Work Items</h4>
-          <p>Select work title to edit OR drag and drop buttons to specify order</p>
+          <p>
+            Select work title to edit OR drag and drop buttons to specify order
+          </p>
           <hr />
           <RLDD
             items={workItems}
@@ -68,9 +76,7 @@ function AdminWork({ location, svc, client }) {
                 </button>
               )
             }}
-            onChange={reorder => {
-              setWorkItems(reorder)
-            }}
+            onChange={reorderWork}
           />
         </div>
       </div>

@@ -176,13 +176,16 @@
   }
   .work-title {
     a:hover {
-      text-decoration: underline !important;
+      color: #fff;
     }
   }
   .new-work-btn-container {
     justify-content: space-between;
     align-items: center;
     margin-top: 1%;
+    .back-btn {
+      cursor: pointer;
+    }
   }
   .work-item-container {
     margin-top: 3%;

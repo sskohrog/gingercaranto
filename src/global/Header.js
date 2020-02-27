@@ -8,7 +8,11 @@ function Header({ onClick, setCount }) {
       {({ location }) => (
         <div
           className='row header-container'
-          id={location.pathname === '/' ? 'home-header' : 'main-header'}
+          id={
+            location.pathname === '/' || location.pathname === '/edit'
+              ? 'home-header'
+              : 'main-header'
+          }
         >
           <div className='col home'>
             <div

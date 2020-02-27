@@ -115,7 +115,6 @@ function EditWork({ svc, client, project }) {
         <div className='row work-item-container'>
           <div className='col-12 back-container'>
             <h6
-              type='button'
               className='back-btn'
               onClick={() => navigate(`/edit/${svc}/${client}`)}
             >
