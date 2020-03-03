@@ -18,7 +18,8 @@
     "react-items-carousel": "^2.8.0",
     "react-list-drag-and-drop": "^0.9.2",
     "react-loader-spinner": "^3.1.5",
-    "react-scripts": "3.3.1"
+    "react-scripts": "3.3.1",
+    "uuid": "^7.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

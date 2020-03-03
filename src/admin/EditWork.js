@@ -41,9 +41,9 @@ function EditWork({ svc, client, project }) {
     cloneWork.svc = event.target.value
     setGingerWork(cloneWork)
   }
-  const toggleCarousel = toggle => {
+  const toggleCarousel = () => {
     let cloneWork = _cloneDeep(gingerWork)
-    cloneWork.carousel = !toggle
+    cloneWork.carousel = !cloneWork.carousel
     setGingerWork(cloneWork)
   }
   const updateImgText = (event, idx) => {
@@ -158,7 +158,7 @@ function EditWork({ svc, client, project }) {
           </div>
           <div className='col-12 key-work'>
             <p className='form-group'>
-              <label>Key: </label>
+              <label>Key (required): </label>
               <input
                 type='text'
                 className='form-control'
@@ -178,7 +178,7 @@ function EditWork({ svc, client, project }) {
                 type='checkbox'
                 defaultChecked={(gingerWork || {}).carousel}
                 id='carousel-check'
-                onClick={() => toggleCarousel(!gingerWork.carousel)}
+                onClick={toggleCarousel}
               />
               <label className='form-check-label' for='carousel-check'>
                 Carousel Item?

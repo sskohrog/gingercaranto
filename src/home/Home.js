@@ -101,6 +101,7 @@ function Home() {
         </Card>
         <Card className={'mobile-gd-container' + openMobileMenu('gd')}>
           <Accordion.Toggle
+            as={Card.Header}
             eventKey='graphic-designer'
             onClick={() =>
               setOpenSvc(pastSvc => {

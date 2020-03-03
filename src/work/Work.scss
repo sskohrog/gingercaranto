@@ -35,13 +35,13 @@
         > div {
           text-align: center;
           .carousel-img {
-            max-height: 100px;
+            max-height: 225px;
           }
         }
       }
       .right-btn,
       .left-btn {
-        font-size: 2rem;
+        font-size: 1rem;
         font-weight: 600;
       }
     }
@@ -90,19 +90,6 @@
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) {
-  .work-container {
-    .work-item-container {
-      .carousel-container {
-        .carousel-wrapper {
-          > div {
-            .carousel-img {
-              max-height: 225px;
-            }
-          }
-        }
-      }
-    }
-  }
 }
 
 // Medium devices (tablets, 768px and up)
@@ -122,6 +109,12 @@
       .imgs-container {
         .img-subtext {
           font-size: 1rem;
+        }
+      }
+      .carousel-container {
+        .right-btn,
+        .left-btn {
+          font-size: 2rem;
         }
       }
     }

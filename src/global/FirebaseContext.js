@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import firebase from 'firebase'
 import _cloneDeep from 'lodash/cloneDeep'
+import _isNil from 'lodash/isNil'
 import { navigate } from '@reach/router'
+import { v4 as uuid } from 'uuid'
 
 const FirebaseContext = React.createContext(null)
 
@@ -83,20 +85,21 @@ function FirebaseProvider({ children }) {
   const uploadImages = async (work, svc, project) => {
     await Promise.all(
       work.imgs.map(async (img, idx) => {
-        if (img.url !== '') {
+        if (img.url !== '' || _isNil(work.imgs[idx].file)) {
           work.imgs[idx].previewUrl = ''
           work.imgs[idx].file = {}
           return
         }
+        let imageName = uuid()
         await firebaseContext
           .storage()
-          .ref(`${svc}/${project}/${img.file.name}`)
+          .ref(`${svc}/${project}/${imageName}`)
           .put(img.file)
           .then(async snapshot => {
             await firebaseContext
               .storage()
               .ref(`${svc}/${project}`)
-              .child(img.file.name)
+              .child(imageName)
               .getDownloadURL()
               .then(url => {
                 work.imgs[idx].url = url

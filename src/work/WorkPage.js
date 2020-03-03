@@ -48,7 +48,7 @@ function WorkPage({ location, svc, client }) {
                     infiniteLoop
                     requestToChangeActive={setActiveItemIndex}
                     activeItemIndex={activeItemIndex}
-                    numberOfCards={3}
+                    numberOfCards={window.innerWidth <= 768 ? 1 : 3}
                     gutter={20}
                     leftChevron={<span className='left-btn'>{'<'}</span>}
                     rightChevron={<span className='right-btn'>{'>'}</span>}

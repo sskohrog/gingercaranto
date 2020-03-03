@@ -7,6 +7,8 @@
       border-top: none;
       border-left: none;
       align-items: end;
+      justify-content: flex-start;
+      margin-left: 15px;
       padding-top: 20%;
     }
     .tiles:hover {
@@ -286,7 +288,7 @@
 @media (min-width: 768px) {
   .col.landing-page {
     display: block;
-    .row.tile-container {
+    > .row.tile-container {
       .tiles {
         font-size: 1rem;
       }
@@ -321,8 +323,8 @@
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) {
-  .landing-page {
-    .row.tile-container {
+  .col.landing-page {
+    > .row.tile-container {
       .tiles {
         font-size: 1.4rem;
       }
