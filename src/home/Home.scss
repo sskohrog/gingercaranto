@@ -129,6 +129,14 @@
   }
 }
 
+// Mobile Header
+.col.landing-page {
+  display: none;
+}
+.mobile-home.accordion {
+  width: 100%;
+}
+
 // info container
 .info-container {
   margin-top: 5%;
@@ -198,12 +206,16 @@
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {
-  .landing-page {
+  .col.landing-page {
+    display: block;
     .row.tile-container {
       .tiles {
         font-size: 1rem;
       }
     }
+  }
+  .mobile-home {
+    display: none;
   }
 }
 

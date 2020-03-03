@@ -45,14 +45,13 @@ function WorkPage({ location, svc, client }) {
                 )}
                 {work.carousel ? (
                   <ItemsCarousel
-                    infiniteScroll
+                    infiniteLoop
                     requestToChangeActive={setActiveItemIndex}
                     activeItemIndex={activeItemIndex}
                     numberOfCards={3}
                     gutter={20}
                     leftChevron={<span className='left-btn'>{'<'}</span>}
                     rightChevron={<span className='right-btn'>{'>'}</span>}
-                    // outsideChevron
                     chevronWidth={40}
                     classes={{
                       wrapper: 'carousel-container',

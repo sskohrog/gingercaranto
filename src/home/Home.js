@@ -1,5 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Link } from '@reach/router'
+import Accordion from 'react-bootstrap/Accordion'
+import Card from 'react-bootstrap/Card'
 import HyperModal from 'react-hyper-modal'
 import { FirebaseContext } from '../global/FirebaseContext'
 import './Home.scss'
@@ -78,6 +80,50 @@ function Home() {
           </Link>
         </div>
       </div>
+
+      <Accordion className='mobile-home'>
+        <Card>
+          <Accordion.Toggle as={Card.Header} eventKey='0'>
+            Click me!
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey='0'>
+            <Card.Body>Hello! I'm the body</Card.Body>
+          </Accordion.Collapse>
+        </Card>
+        <Card>
+          <Accordion.Toggle as={Card.Header} eventKey='1'>
+            Click me!
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey='1'>
+            <Card.Body>Hello! I'm another body</Card.Body>
+          </Accordion.Collapse>
+        </Card>
+        <Card>
+          <Accordion.Toggle as={Card.Header} eventKey='2'>
+            Click me!
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey='2'>
+            <Card.Body>Hello! I'm another body</Card.Body>
+          </Accordion.Collapse>
+        </Card>
+        <Card>
+          <Accordion.Toggle as={Card.Header} eventKey='3'>
+            Click me!
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey='3'>
+            <Card.Body>Hello! I'm another body</Card.Body>
+          </Accordion.Collapse>
+        </Card>
+        <Card>
+          <Accordion.Toggle as={Card.Header} eventKey='4'>
+            Click me!
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey='4'>
+            <Card.Body>Hello! I'm another body</Card.Body>
+          </Accordion.Collapse>
+        </Card>
+      </Accordion>
+
       <HyperModal isOpen={openpwModal} requestClose={() => setpwModal(false)}>
         <div className='container pw-modal'>
           <div className='row justify-content-center'>

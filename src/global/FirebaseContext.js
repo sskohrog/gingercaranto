@@ -110,19 +110,12 @@ function FirebaseProvider({ children }) {
 
   const updatePosition = async (work, svc, client) => {
     setIsLoading(true)
-    let updatedWork = _cloneDeep(work)
-    let cloneWork = _cloneDeep(workContext)
-    if (!updatedWork.id) {
-      updatedWork.id = Object.keys(cloneWork[svc][client]).length + 1
-    }
-    cloneWork[svc][client][updatedWork.key] = updatedWork
-
     try {
       await firebaseContext
         .firestore()
         .collection(svc)
         .doc(client)
-        .set(cloneWork[svc][client])
+        .set(work)
     } catch (err) {
       console.log(err)
     }

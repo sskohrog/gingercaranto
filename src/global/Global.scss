@@ -14,6 +14,10 @@
   }
   .header-container {
     align-items: center;
+    background-color: #000;
+    .col {
+      display: none;
+    }
     .row.white-banner {
       background-color: #fff;
       margin-top: 15px;
@@ -53,6 +57,29 @@
     .photo-editor {
       background-color: $photo-editor;
       color: $photo-editor;
+    }
+    .mobile-header {
+      padding: 0;
+      &.name {
+        text-align: left;
+        a {
+          margin-bottom: 0;
+          margin-left: 10px;
+          color: #fff;
+        }
+      }
+      &.sm-icons {
+        text-align: right;
+        a {
+          svg {
+            max-width: 25px;
+            fill: #fff;
+            margin-right: 15px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+          }
+        }
+      }
     }
   }
   .header-container#main-header {
@@ -124,12 +151,24 @@
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) {
+  .main-container.container-fluid {
+    .header-container {
+      .col {
+        display: block;
+      }
+      .mobile-header.col-6 {
+        display: none;
+      }
+    }
+  }
 }
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {
   .main-container.container-fluid {
     .header-container {
+      color: #000;
+      background-color: #fff;
       .row.white-banner {
         font-size: 1rem;
       }
