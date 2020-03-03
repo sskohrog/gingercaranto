@@ -6,8 +6,8 @@ import { ReactComponent as InstagramSVG } from '../assets/instagram.svg'
 function Info() {
   return (
     <div className='col-12 info-container'>
-      <div className='row'>
-        <div className='col-2 sm-icons'>
+      <div className='row justify-content-center'>
+        <div className='col-md-2 col-0 sm-icons'>
           <p>
             <a
               href='https://www.instagram.com/ginggerbreaad/'
@@ -36,7 +36,7 @@ function Info() {
             </a>
           </p>
         </div>
-        <div className='col-7 info-details'>
+        <div className='col-md-7 col-10 info-details'>
           <p>Hello!</p>
           <br />
           <p>

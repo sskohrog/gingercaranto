@@ -120,6 +120,7 @@
     .tiles {
       color: #fff;
       border: 3px solid #fff;
+      text-align: center;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -135,17 +136,94 @@
 }
 .mobile-home.accordion {
   width: 100%;
+  .card {
+    height: 20%;
+    justify-content: center;
+    align-items: center;
+    transition: height 0.6s ease-out;
+    -webkit-transition: height 0.6s ease-out;
+    -moz-transition: height 0.6s ease-out;
+    -o-transition: height 0.6s ease-out;
+    .card-header {
+      background: none;
+      border: none;
+    }
+    .mobile-home-title {
+      width: fit-content;
+      font-size: 1.2rem;
+      background-color: #fff;
+      padding-left: 5px;
+      padding-right: 5px;
+      margin-bottom: 0;
+    }
+    .collapsing,
+    .collapse {
+      width: 100%;
+      &.show {
+        margin-top: 3%;
+      }
+      .card-body {
+        width: 100%;
+        .mobile-link {
+          color: #fff;
+          font-size: 1.1rem;
+          font-weight: 500;
+          width: 100%;
+          border-bottom: 1px solid;
+          margin-bottom: 1.5rem;
+        }
+      }
+    }
+    &.open-menu {
+      height: 60%;
+    }
+    &.closed-menu {
+      height: 10%;
+    }
+    &.mobile-info-container {
+      background-color: $home;
+      .mobile-home-title {
+        color: $home;
+      }
+    }
+    &.mobile-gd-container {
+      background-color: $graphic-designer;
+      .mobile-home-title {
+        color: $graphic-designer;
+      }
+    }
+    &.mobile-sm-container {
+      background-color: $social-media;
+      .mobile-home-title {
+        color: $social-media;
+      }
+    }
+    &.mobile-cp-container {
+      background-color: $creative-producer;
+      .mobile-home-title {
+        color: $creative-producer;
+      }
+    }
+    &.mobile-pe-container {
+      background-color: $photo-editor;
+      .mobile-home-title {
+        color: $photo-editor;
+      }
+    }
+  }
 }
 
 // info container
 .info-container {
-  margin-top: 5%;
+  background-color: $home;
+  padding-top: 5%;
   .sm-icons {
     > p {
       margin-left: 1%;
     }
     svg,
     .cls-1 {
+      display: none;
       max-width: 55px;
       cursor: pointer;
       fill: $home;
@@ -159,8 +237,8 @@
     }
   }
   .info-details {
-    font-size: 1.4rem;
-    color: $home;
+    font-size: 1.2rem;
+    color: #fff;
     padding-left: 4%;
   }
 }
@@ -168,8 +246,8 @@
 // Password modal
 .style__hyper-modal-wrapper___3sRTj
   .style__hyper-modal-content-wrapper___1-Dl8 {
-  width: 40%;
-  height: 40%;
+  width: 90%;
+  height: 30%;
 }
 .container.pw-modal {
   height: 100%;
@@ -216,6 +294,28 @@
   }
   .mobile-home {
     display: none;
+  }
+  // Password modal
+  .style__hyper-modal-wrapper___3sRTj
+    .style__hyper-modal-content-wrapper___1-Dl8 {
+    width: 40%;
+    height: 40%;
+  }
+
+  .info-container {
+    background-color: #fff;
+    .sm-icons {
+      svg,
+      .cls-1 {
+        display: flex;
+        fill: $home;
+        stroke: $home;
+      }
+    }
+    .info-details {
+      color: $home;
+      font-size: 1.4rem;
+    }
   }
 }
 

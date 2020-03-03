@@ -7,10 +7,10 @@ function SocialMediaPage({ work = {} }) {
       <div className='col-12 title-container'>
         <h4 className='work-title'>{work.title}</h4>
       </div>
-      <div className='col-4 svc-container'>
+      <div className='col-md-4 col-12 svc-container'>
         <p>{work.svc}</p>
       </div>
-      <div className='col-8 img-container'>
+      <div className='col-md-8 col-12 img-container'>
         <div className='row'>
           {work.imgs.map(img => {
             return (

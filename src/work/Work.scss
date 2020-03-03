@@ -15,16 +15,18 @@
         width: fit-content;
         color: #fff;
         text-transform: capitalize;
+        font-size: 1rem;
       }
     }
     .services {
       > p {
-        font-size: 1.1rem;
+        font-size: 0.9rem;
       }
     }
     .imgs-container {
       .img-subtext {
         color: #000;
+        font-size: 0.7rem;
       }
     }
     .carousel-container {
@@ -57,13 +59,16 @@
     color: $social-media;
     .work-title {
       background-color: $social-media;
-      margin-bottom: 1%;
+      margin-bottom: 3%;
+      margin-top: 3%;
     }
     .img-container {
+      margin-top: 3%;
       .sm-imgs-container {
         text-align: center;
         .sm-img {
-          max-height: 850px;
+          // max-height: 850px;
+          width: 100%;
         }
       }
     }
@@ -102,6 +107,34 @@
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {
+  .work-container {
+    .work-item-container {
+      .title-container {
+        > .work-title {
+          font-size: 1.25rem;
+        }
+      }
+      .services {
+        > p {
+          font-size: 1.1rem;
+        }
+      }
+      .imgs-container {
+        .img-subtext {
+          font-size: 1rem;
+        }
+      }
+    }
+    &.social-media {
+      .work-title {
+        margin-bottom: 1%;
+        margin-top: 0%;
+      }
+      .img-container {
+        margin-top: 0;
+      }
+    }
+  }
 }
 
 // Large devices (desktops, 992px and up)

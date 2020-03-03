@@ -25,11 +25,11 @@ function Footer({ location }) {
     <div
       className={`row footer-container justify-content-between${serviceColor()}`}
     >
-      <div className='col-3 footer-link'>
+      <div className='col-6 footer-link'>
         <Link to='/info'>INFO</Link>
         <Link to='/'>WORK</Link>
       </div>
-      <div className='col-4 footer-sm'>
+      <div className='col-6 footer-sm'>
         <a
           href='https://www.instagram.com/ginggerbreaad/'
           rel='noopener noreferrer'
