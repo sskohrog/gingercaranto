@@ -268,13 +268,26 @@
   }
   .enter-btn-container {
     .enter-btn {
-      color: $graphic-designer;
-      border: 1px solid $graphic-designer;
+      border: 1px solid;
       border-radius: 4px;
+      &.graphic-design {
+        border-color: $graphic-designer;
+        color: $graphic-designer;
+      }
+      &.creative-producer {
+        border-color: $creative-producer;
+        color: $creative-producer;
+      }
     }
     .enter-btn:hover {
       color: #fff;
       background-color: $graphic-designer;
+      &.graphic-design {
+        background-color: $graphic-designer;
+      }
+      &.creative-producer {
+        background-color: $creative-producer;
+      }
     }
   }
   .pw-error {

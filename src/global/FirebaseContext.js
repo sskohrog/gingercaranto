@@ -9,7 +9,7 @@ const FirebaseContext = React.createContext(null)
 
 function FirebaseProvider({ children }) {
   const [firebaseContext, setFirebaseContext] = useState(null)
-  const [applePW, setApplePW] = useState('')
+  const [applePW, setApplePW] = useState({ password: '', svc: '' })
   const [passwordCorrect, setPWCorrect] = useState(true)
   const [workContext, setWorkContext] = useState({
     'graphic-design': {
@@ -54,11 +54,12 @@ function FirebaseProvider({ children }) {
   }, [])
 
   useEffect(() => {
-    if (applePW === '') {
+    if (applePW.password === '') {
       return
-    } else if (applePW === process.env.REACT_APP_APPLE_PW) {
+    } else if (applePW.password === process.env.REACT_APP_APPLE_PW) {
       setPWCorrect(true)
-      navigate('/work/graphic-design/apple')
+      navigate(`/work/${applePW.svc}/apple`)
+      setApplePW({ password: '', svc: '' })
     } else {
       setPWCorrect(false)
     }

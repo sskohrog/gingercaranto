@@ -10,11 +10,12 @@ import './Home.scss'
 function Home() {
   const { passwordCorrect, setApplePW } = useContext(FirebaseContext)
   const [openpwModal, setpwModal] = useState(false)
+  const [pwSvc, setPwSvc] = useState('')
   const [password, setPassword] = useState('')
   const [openService, setOpenSvc] = useState(null)
 
   useEffect(() => {
-    setApplePW('')
+    setApplePW({ password: '', svc: '' })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -25,6 +26,16 @@ function Home() {
       return ' closed-menu'
     } else if (_isNil(openService)) {
       return ''
+    }
+  }
+
+  const returnButtonClassname = () => {
+    if (pwSvc === '') {
+      return
+    } else if (pwSvc === 'graphic-design') {
+      return ' graphic-design'
+    } else if (pwSvc === 'creative-producer') {
+      return ' creative-producer'
     }
   }
 
@@ -39,7 +50,13 @@ function Home() {
       </div>
       <div className='col graphic-designer landing-page'>
         <div className='row tile-container'>
-          <span className='col-12 tiles apple' onClick={() => setpwModal(true)}>
+          <span
+            className='col-12 tiles apple'
+            onClick={() => {
+              setpwModal(true)
+              setPwSvc('graphic-design')
+            }}
+          >
             Apple Music
           </span>
           <Link to='/work/graphic-design/stussy' className='col-6 tiles stussy'>
@@ -71,7 +88,13 @@ function Home() {
       </div>
       <div className='col creative-producer landing-page'>
         <div className='row tile-container'>
-          <span className='col-12 tiles apple' onClick={() => setpwModal(true)}>
+          <span
+            className='col-12 tiles apple'
+            onClick={() => {
+              setpwModal(true)
+              setPwSvc('creative-producer')
+            }}
+          >
             Apple Music
           </span>
           <Link to='/work/creative-producer/vans' className='col-12 tiles vans'>
@@ -110,7 +133,13 @@ function Home() {
           </Accordion.Toggle>
           <Accordion.Collapse eventKey='graphic-designer'>
             <Card.Body>
-              <p className='mobile-link' onClick={() => setpwModal(true)}>
+              <p
+                className='mobile-link'
+                onClick={() => {
+                  setpwModal(true)
+                  setPwSvc('graphic-design')
+                }}
+              >
                 Apple Music
               </p>
               <p
@@ -183,7 +212,13 @@ function Home() {
           </Accordion.Toggle>
           <Accordion.Collapse eventKey='creative-producer'>
             <Card.Body>
-              <p className='mobile-link' onClick={() => setpwModal(true)}>
+              <p
+                className='mobile-link'
+                onClick={() => {
+                  setpwModal(true)
+                  setPwSvc('creative-producer')
+                }}
+              >
                 Apple Music
               </p>
               <p
@@ -251,10 +286,10 @@ function Home() {
               >
                 <button
                   type='button'
-                  className='btn btn-lg enter-btn'
+                  className={`btn btn-lg enter-btn${returnButtonClassname()}`}
                   onClick={() => {
                     setPassword('')
-                    setApplePW(password)
+                    setApplePW({ password, svc: pwSvc })
                   }}
                 >
                   ENTER
