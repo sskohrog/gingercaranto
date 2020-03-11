@@ -112,22 +112,29 @@
           font-size: 1.3rem;
           font-weight: 600;
           color: #fff;
-          margin-right: 15px;
+          margin-right: 25px;
         }
       }
     }
   }
   .footer-sm {
-    padding: 1% 0;
-    max-height: 100px;
-    text-align: right;
-    a {
-      margin-right: 15px;
-      svg,
-      .cls-1 {
-        cursor: pointer;
-        fill: #fff;
-        stroke: #fff;
+    .row {
+      height: 100%;
+      padding: 2% 1%;
+      .col-12 {
+        text-align: right;
+        a {
+          margin-right: 15px;
+          &:last-child {
+            margin-right: 0;
+          }
+          svg,
+          .cls-1 {
+            cursor: pointer;
+            fill: #fff;
+            stroke: #fff;
+          }
+        }
       }
     }
   }

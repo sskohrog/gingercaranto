@@ -15,7 +15,7 @@ function Footer({ location }) {
     } else if (path.includes('creative-producer')) {
       return ' creative-producer'
     } else if (path.includes('photo')) {
-      return ' graphic-design'
+      return ' photo-editor'
     } else {
       return ''
     }
@@ -34,27 +34,31 @@ function Footer({ location }) {
         </div>
       </div>
       <div className='col-6 footer-sm'>
-        <a
-          href='https://www.instagram.com/ginggerbreaad/'
-          rel='noopener noreferrer'
-          target='_blank'
-        >
-          <InstagramSVG />
-        </a>
-        <a
-          href='https://www.linkedin.com/in/ginger-caranto-b98b88a1/'
-          rel='noopener noreferrer'
-          target='_blank'
-        >
-          <LinkedinSVG />
-        </a>
-        <a
-          href='mailto:gingercaranto@gmail.com'
-          rel='noopener noreferrer'
-          target='_blank'
-        >
-          <EmailSVG />
-        </a>
+        <div className='row'>
+          <div className='col-12'>
+            <a
+              href='https://www.instagram.com/ginggerbreaad/'
+              rel='noopener noreferrer'
+              target='_blank'
+            >
+              <InstagramSVG />
+            </a>
+            <a
+              href='https://www.linkedin.com/in/ginger-caranto-b98b88a1/'
+              rel='noopener noreferrer'
+              target='_blank'
+            >
+              <LinkedinSVG />
+            </a>
+            <a
+              href='mailto:gingercaranto@gmail.com'
+              rel='noopener noreferrer'
+              target='_blank'
+            >
+              <EmailSVG />
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   )
