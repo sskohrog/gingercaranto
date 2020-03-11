@@ -56,7 +56,7 @@ function FirebaseProvider({ children }) {
   useEffect(() => {
     if (applePW.password === '') {
       return
-    } else if (applePW.password === process.env.REACT_APP_APPLE_PW) {
+    } else if (applePW.password.toLowerCase() === process.env.REACT_APP_APPLE_PW) {
       setPWCorrect(true)
       navigate(`/work/${applePW.svc}/apple`)
       setApplePW({ password: '', svc: '' })
