@@ -85,6 +85,7 @@ function EditWork({ svc, client, project }) {
           cloneWork.imgs[idx].file = {}
           break
         }
+        cloneWork.imgs[idx].url = ''
         cloneWork.imgs[idx].file = event.target.files[0]
         cloneWork.imgs[idx].previewUrl = URL.createObjectURL(
           event.target.files[0]

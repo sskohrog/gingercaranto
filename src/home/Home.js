@@ -71,12 +71,9 @@ function Home() {
       </div>
       <div className='col creative-producer landing-page'>
         <div className='row tile-container'>
-          <Link
-            to='/work/creative-producer/apple'
-            className='col-12 tiles apple'
-          >
+          <span className='col-12 tiles apple' onClick={() => setpwModal(true)}>
             Apple Music
-          </Link>
+          </span>
           <Link to='/work/creative-producer/vans' className='col-12 tiles vans'>
             Vans
           </Link>
@@ -186,10 +183,7 @@ function Home() {
           </Accordion.Toggle>
           <Accordion.Collapse eventKey='creative-producer'>
             <Card.Body>
-              <p
-                className='mobile-link'
-                onClick={() => navigate('/work/creative-producer/apple')}
-              >
+              <p className='mobile-link' onClick={() => setpwModal(true)}>
                 Apple Music
               </p>
               <p

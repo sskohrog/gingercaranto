@@ -26,8 +26,12 @@ function Footer({ location }) {
       className={`row footer-container justify-content-between${serviceColor()}`}
     >
       <div className='col-6 footer-link'>
-        <Link to='/info'>INFO</Link>
-        <Link to='/'>WORK</Link>
+        <div className='row'>
+          <div className='col-12'>
+            <Link to='/info'>INFO</Link>
+            <Link to='/'>WORK</Link>
+          </div>
+        </div>
       </div>
       <div className='col-6 footer-sm'>
         <a
