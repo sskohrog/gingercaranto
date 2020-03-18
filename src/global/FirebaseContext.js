@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 import firebase from 'firebase'
 import _cloneDeep from 'lodash/cloneDeep'
@@ -11,6 +12,8 @@ function FirebaseProvider({ children }) {
   const [firebaseContext, setFirebaseContext] = useState(null)
   const [applePW, setApplePW] = useState({ password: '', svc: '' })
   const [passwordCorrect, setPWCorrect] = useState(true)
+  const [infoContent, setInfoContent] = useState([])
+  const [socialContent, setSocialContent] = useState(null)
   const [workContext, setWorkContext] = useState({
     'graphic-design': {
       alta: {},
@@ -56,7 +59,9 @@ function FirebaseProvider({ children }) {
   useEffect(() => {
     if (applePW.password === '') {
       return
-    } else if (applePW.password.toLowerCase() === process.env.REACT_APP_APPLE_PW) {
+    } else if (
+      applePW.password.toLowerCase() === process.env.REACT_APP_APPLE_PW
+    ) {
       setPWCorrect(true)
       navigate(`/work/${applePW.svc}/apple`)
       setApplePW({ password: '', svc: '' })
@@ -176,6 +181,66 @@ function FirebaseProvider({ children }) {
     setIsLoading(false)
   }
 
+  const getInfo = async () => {
+    return (
+      firebaseContext &&
+      (await firebaseContext
+        .firestore()
+        .collection('info')
+        .doc('about')
+        .get()
+        .then(item => {
+          let info = item.data().data
+          setInfoContent(info)
+          return info
+        }))
+    )
+  }
+
+  const saveInfo = async () => {
+    setIsLoading(true)
+    try {
+      await firebaseContext
+        .firestore()
+        .collection('info')
+        .doc('about')
+        .update({ data: infoContent })
+    } catch (err) {
+      console.log(err)
+    }
+    setIsLoading(false)
+  }
+
+  const getSocial = async () => {
+    return (
+      firebaseContext &&
+      (await firebaseContext
+        .firestore()
+        .collection('info')
+        .doc('social-media')
+        .get()
+        .then(item => {
+          let info = item.data()
+          setSocialContent(info)
+          return info
+        }))
+    )
+  }
+
+  const saveSocial = async () => {
+    setIsLoading(true)
+    try {
+      await firebaseContext
+        .firestore()
+        .collection('info')
+        .doc('social-media')
+        .update(socialContent)
+    } catch (err) {
+      console.log(err)
+    }
+    setIsLoading(false)
+  }
+
   return (
     <FirebaseContext.Provider
       value={{
@@ -188,6 +253,14 @@ function FirebaseProvider({ children }) {
         applePW,
         setApplePW,
         passwordCorrect,
+        infoContent,
+        getInfo,
+        setInfoContent,
+        saveInfo,
+        socialContent,
+        getSocial,
+        setSocialContent,
+        saveSocial,
         isLoading
       }}
     >

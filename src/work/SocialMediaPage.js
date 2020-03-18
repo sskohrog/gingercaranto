@@ -14,7 +14,11 @@ function SocialMediaPage({ work = {} }) {
         <div className='row'>
           {work.imgs.map(img => {
             return (
-              <div className='sm-imgs-container col-6'>
+              <div
+                className={
+                  'sm-imgs-container col' + (img.col ? '-' + img.col : '')
+                }
+              >
                 <img className='sm-img' src={img.url} alt='work images' />
               </div>
             )

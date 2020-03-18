@@ -146,25 +146,59 @@
   }
 }
 
-// info container
-.admin-info-container {
-  margin-top: 5%;
+// edit info container
+.edit-info-container {
+  padding-top: 5%;
   .sm-icons {
-    margin-left: 1%;
-    svg {
-      max-width: 55px;
-      cursor: pointer;
-    }
-    svg:hover {
-      .cls-1 {
-        fill: #c82014;
-        stroke: #c82014;
+    > p {
+      margin-left: 1%;
+      display: flex;
+      align-items: center;
+      > .form-control {
+        margin-left: 3%;
       }
+      svg,
+      .cls-1 {
+        width: 50px;
+        cursor: pointer;
+        fill: $home;
+        stroke: $home;
+      }
+    }
+    .save-btn-container {
+      float: right;
     }
   }
   .info-details {
-    max-width: 600px;
     font-size: 1.2rem;
+    color: #fff;
+    text-align: center;
+    .info-input-container {
+      max-width: 850px;
+      display: flex;
+      .info-input {
+        margin-right: 1%;
+      }
+    }
+    .save-btn-container {
+      max-width: 850px;
+      display: flex;
+      justify-content: space-between;
+      .add-btn {
+        background-color: $home;
+        color: #fff;
+      }
+    }
+  }
+  .save-btn-container {
+    .save-btn {
+      color: $home;
+      border: 1px solid $home;
+    }
+  }
+  .info-loader-container {
+    justify-content: center;
+    align-items: center;
   }
 }
 

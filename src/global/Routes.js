@@ -5,6 +5,7 @@ import AdminHome from '../admin/AdminHome'
 import AdminWork from '../admin/AdminWork'
 import Info from '../home/Info'
 import Home from '../home/Home'
+import EditInfo from '../admin/EditInfo'
 import EditWork from '../admin/EditWork'
 import WorkPage from '../work/WorkPage'
 
@@ -13,6 +14,7 @@ function Routes({ count, location, passwordCorrect }) {
     <Router className='row full-height'>
       <Home path='/' />
       <Info path='/info' />
+      <EditInfo exact path='/edit/info' />
       {count === 10 ? <AdminHome path='/edit' /> : <AdminError path='/edit' />}
 
       {location.pathname !== '/work/graphic-design/apple' || passwordCorrect ? (

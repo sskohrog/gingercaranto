@@ -218,7 +218,6 @@
 
 // info container
 .info-container {
-  background-color: $home;
   padding-top: 5%;
   .sm-icons {
     > p {
@@ -244,6 +243,9 @@
     color: #fff;
     padding-left: 4%;
     max-width: 850px;
+    br:last-child {
+      display: none;
+    }
   }
 }
 
