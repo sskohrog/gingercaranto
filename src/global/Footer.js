@@ -1,11 +1,15 @@
-import React from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext } from 'react'
 import { Link } from '@reach/router'
+import { FirebaseContext } from './FirebaseContext'
 import { ReactComponent as EmailSVG } from '../assets/email.svg'
 import { ReactComponent as LinkedinSVG } from '../assets/linkedin.svg'
 import { ReactComponent as InstagramSVG } from '../assets/instagram.svg'
 import './Global.scss'
 
 function Footer({ location }) {
+  const { socialContent } = useContext(FirebaseContext)
+
   const serviceColor = () => {
     let path = (location || {}).pathname || ''
     if (path.includes('graphic-design')) {
@@ -37,21 +41,21 @@ function Footer({ location }) {
         <div className='row'>
           <div className='col-12'>
             <a
-              href='https://www.instagram.com/ginggerbreaad/'
+              href={(socialContent || {}).instagram}
               rel='noopener noreferrer'
               target='_blank'
             >
               <InstagramSVG />
             </a>
             <a
-              href='https://www.linkedin.com/in/ginger-caranto-b98b88a1/'
+              href={(socialContent || {}).linkedin}
               rel='noopener noreferrer'
               target='_blank'
             >
               <LinkedinSVG />
             </a>
             <a
-              href='mailto:gingercaranto@gmail.com'
+              href={`mailto:${(socialContent || {}).email}`}
               rel='noopener noreferrer'
               target='_blank'
             >

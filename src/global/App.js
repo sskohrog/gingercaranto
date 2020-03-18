@@ -28,28 +28,30 @@ function App() {
             'main-container container-fluid' + (count === 10 ? ' edit' : '')
           }
         >
-          <Header onClick={adminMode} setCount={setCount} />
           <FirebaseProvider>
             <FirebaseContext.Consumer>
               {({ firebaseContext, passwordCorrect }) => {
                 return (
                   firebaseContext && (
-                    <Routes
-                      count={count}
-                      location={location}
-                      passwordCorrect={passwordCorrect}
-                    />
+                    <>
+                      <Header onClick={adminMode} setCount={setCount} />
+                      <Routes
+                        count={count}
+                        location={location}
+                        passwordCorrect={passwordCorrect}
+                      />
+                      {!(
+                        location.pathname === '/' ||
+                        location.pathname === '/info' ||
+                        location.pathname.includes('/edit') ||
+                        location.pathname.includes('/new')
+                      ) && <Footer location={location} />}
+                    </>
                   )
                 )
               }}
             </FirebaseContext.Consumer>
           </FirebaseProvider>
-          {!(
-            location.pathname === '/' ||
-            location.pathname === '/info' ||
-            location.pathname.includes('/edit') ||
-            location.pathname.includes('/new')
-          ) && <Footer location={location} />}
         </div>
       )}
     </Location>

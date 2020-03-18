@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
+import _isNil from 'lodash/isNil'
 import { Router } from '@reach/router'
+import { FirebaseContext } from './FirebaseContext'
 import AdminError from '../admin/AdminError'
 import AdminHome from '../admin/AdminHome'
 import AdminWork from '../admin/AdminWork'
@@ -10,6 +12,20 @@ import EditWork from '../admin/EditWork'
 import WorkPage from '../work/WorkPage'
 
 function Routes({ count, location, passwordCorrect }) {
+  const { infoContent, getInfo, socialContent, getSocial } = useContext(
+    FirebaseContext
+  )
+  
+  useEffect(() => {
+    ;(async () => {
+      // Initialize Info and Social
+      if (infoContent.length === 0 || _isNil(socialContent)) {
+        await getInfo()
+        await getSocial()
+      }
+    })()
+  }, [])
+
   return (
     <Router className='row full-height'>
       <Home path='/' />

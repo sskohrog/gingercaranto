@@ -1,22 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { FirebaseContext } from '../global/FirebaseContext'
 import { ReactComponent as EmailSVG } from '../assets/email.svg'
 import { ReactComponent as LinkedinSVG } from '../assets/linkedin.svg'
 import { ReactComponent as InstagramSVG } from '../assets/instagram.svg'
 
 function Info() {
-  const { infoContent, getInfo, socialContent, getSocial } = useContext(
-    FirebaseContext
-  )
-
-  useEffect(() => {
-    ;(async () => {
-      // Initialize Info and Social
-      await getInfo()
-      await getSocial()
-    })()
-  }, [])
+  const { infoContent, socialContent } = useContext(FirebaseContext)
 
   return (
     <div className='col-12 info-container'>
